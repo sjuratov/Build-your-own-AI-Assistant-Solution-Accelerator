@@ -161,6 +161,8 @@ param AIStudioDraftFlowDeploymentName string = ''
 @description('Use Azure AI Studio')
 param AIStudioUse string = 'False'
 
+@description('Application Insights Location')
+param appInsightsLocation string
 
 var WebAppImageName = 'DOCKER|byoaiacontainerreg.azurecr.io/byoaia-app:latest'
 
@@ -391,7 +393,7 @@ resource Website 'Microsoft.Web/sites@2020-06-01' = {
 
 resource ApplicationInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: ApplicationInsightsName
-  location: resourceGroup().location
+  location: appInsightsLocation
   tags: {
     'hidden-link:${resourceId('Microsoft.Web/sites',ApplicationInsightsName)}': 'Resource'
   }

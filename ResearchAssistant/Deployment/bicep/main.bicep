@@ -47,11 +47,12 @@ module azAIMultiServiceAccount 'deploy_azure_ai_service.bicep' = {
 } 
 
 // ========== Search service ========== //
+var aiSearchLocation = 'switzerlandnorth'
 module azSearchService 'deploy_ai_search_service.bicep' = {
   name: 'deploy_ai_search_service'
   params: {
     solutionName: solutionPrefix
-    solutionLocation: solutionLocation
+    solutionLocation: aiSearchLocation
   }
 } 
 
@@ -194,6 +195,7 @@ module appserviceModule 'deploy_app_service.bicep' = {
     AIStudioDraftFlowAPIKey:'TBD'
     AIStudioDraftFlowDeploymentName:'TBD'
     AIStudioUse:'False'
+    appInsightsLocation: 'switzerlandnorth'
   }
   scope: resourceGroup(resourceGroup().name)
   dependsOn:[storageAccountModule,azOpenAI,azAIMultiServiceAccount,azSearchService]
