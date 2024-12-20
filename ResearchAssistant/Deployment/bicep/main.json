@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.29.47.4906",
-      "templateHash": "15120998949478387666"
+      "version": "0.32.4.45862",
+      "templateHash": "5022419059176435890"
     }
   },
   "parameters": {
@@ -23,7 +23,8 @@
     "resourceGroupName": "[resourceGroup().name]",
     "subscriptionId": "[subscription().subscriptionId]",
     "solutionLocation": "[variables('resourceGroupLocation')]",
-    "baseUrl": "https://raw.githubusercontent.com/microsoft/Build-your-own-copilot-Solution-Accelerator/main/"
+    "baseUrl": "https://raw.githubusercontent.com/microsoft/Build-your-own-copilot-Solution-Accelerator/main/",
+    "aiSearchLocation": "switzerlandnorth"
   },
   "resources": [
     {
@@ -50,8 +51,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.29.47.4906",
-              "templateHash": "14160084237240395045"
+              "version": "0.32.4.45862",
+              "templateHash": "9540019694218374629"
             }
           },
           "parameters": {
@@ -142,8 +143,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.29.47.4906",
-              "templateHash": "3438771358894843894"
+              "version": "0.32.4.45862",
+              "templateHash": "16802844609390187625"
             }
           },
           "parameters": {
@@ -238,7 +239,8 @@
                 "publicAccess": "None"
               },
               "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('saName'), 'default')]"
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('saName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('saName'))]"
               ]
             },
             {
@@ -294,8 +296,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.29.47.4906",
-              "templateHash": "14900700646237730459"
+              "version": "0.32.4.45862",
+              "templateHash": "6507317467445174187"
             }
           },
           "parameters": {
@@ -367,7 +369,7 @@
             "value": "[parameters('solutionPrefix')]"
           },
           "solutionLocation": {
-            "value": "[variables('solutionLocation')]"
+            "value": "[variables('aiSearchLocation')]"
           }
         },
         "template": {
@@ -376,8 +378,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.29.47.4906",
-              "templateHash": "5512132473254602596"
+              "version": "0.32.4.45862",
+              "templateHash": "13153152178869896502"
             }
           },
           "parameters": {
@@ -464,8 +466,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.29.47.4906",
-              "templateHash": "3158286966136205910"
+              "version": "0.32.4.45862",
+              "templateHash": "18291052733697216391"
             }
           },
           "parameters": {
@@ -595,8 +597,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.29.47.4906",
-              "templateHash": "14011666752495832263"
+              "version": "0.32.4.45862",
+              "templateHash": "5400101404746437863"
             }
           },
           "parameters": {
@@ -724,8 +726,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.29.47.4906",
-              "templateHash": "15994909158226903576"
+              "version": "0.32.4.45862",
+              "templateHash": "8985814210496712950"
             }
           },
           "parameters": {
@@ -1187,8 +1189,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.29.47.4906",
-              "templateHash": "9147908724141769749"
+              "version": "0.32.4.45862",
+              "templateHash": "1133606981561789170"
             }
           },
           "parameters": {
@@ -1276,8 +1278,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.29.47.4906",
-              "templateHash": "13153561406831829345"
+              "version": "0.32.4.45862",
+              "templateHash": "10936551274838816709"
             }
           },
           "parameters": {
@@ -1475,6 +1477,9 @@
           },
           "AIStudioUse": {
             "value": "False"
+          },
+          "appInsightsLocation": {
+            "value": "switzerlandnorth"
           }
         },
         "template": {
@@ -1483,8 +1488,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.29.47.4906",
-              "templateHash": "7109834445090495169"
+              "version": "0.32.4.45862",
+              "templateHash": "6304917651062605192"
             }
           },
           "parameters": {
@@ -1851,6 +1856,12 @@
               "metadata": {
                 "description": "Use Azure AI Studio"
               }
+            },
+            "appInsightsLocation": {
+              "type": "string",
+              "metadata": {
+                "description": "Application Insights Location"
+              }
             }
           },
           "variables": {
@@ -2068,7 +2079,7 @@
               "type": "Microsoft.Insights/components",
               "apiVersion": "2020-02-02",
               "name": "[parameters('ApplicationInsightsName')]",
-              "location": "[resourceGroup().location]",
+              "location": "[parameters('appInsightsLocation')]",
               "tags": {
                 "[format('hidden-link:{0}', resourceId('Microsoft.Web/sites', parameters('ApplicationInsightsName')))]": "Resource"
               },
